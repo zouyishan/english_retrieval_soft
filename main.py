@@ -1,4 +1,5 @@
 from PySide2.QtWidgets import *
+import re
 
 class EnglishSoft(QWidget):
     def __init__(self, parent=None):
@@ -38,7 +39,7 @@ class EnglishSoft(QWidget):
         self.btn4.move(475, 20)
 
         self.window.resize(540, 390)
-        self.window.setWindowTitle('英语检索软件')
+        self.window.setWindowTitle('学术写作辅助软件')
 
         self.textEdit.setPlaceholderText("请输入文章")
         self.textEdit.move(10, 28)
@@ -57,7 +58,7 @@ class EnglishSoft(QWidget):
         self.button.move(460, 48)
         self.save.move(90, 0)
         self.op.move(2, 0)
-        self.button.clicked.connect(self.handleCalc)
+        self.button.clicked.connect(self.find)
         self.op.clicked.connect(self.openFile)
         self.save.clicked.connect(self.saveFile)
         self.window.show()
@@ -104,11 +105,35 @@ class EnglishSoft(QWidget):
     def find(self):
         data = self.checkBox.text()
         src = self.textEdit.toPlainText()
+        if data == '':
+            QMessageBox.about(self.window, '提示', '检索框为空')
+        if src == '':
+            QMessageBox.about(self.window, '提示', '输入框为空')
+
+        obj = re.search(data, src, re.M|re.I)
+        text = ''
+        if obj is None:
+            text = '匹配失败'
+            self.res.setPlainText(text)
+            return
+        text = '匹配成功, 相关字符为: '
+        tup = obj.span()
+        start = tup[0]
+        end = tup[1]
+        if start - 2 >= 0:
+            start -= 2
+        if end + 2 < len(src):
+            end += 2
+        text += src[start:end]
+        text += ', 自符位于: '
+        text += str(tup[0])
+        text += '-'
+        text += str(tup[1])
+        self.res.setPlainText(text)
 
 
 
 if __name__ == '__main__':
-
     app = QApplication([])
     tx = EnglishSoft()
     app.exec_()
