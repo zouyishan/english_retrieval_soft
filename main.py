@@ -9,7 +9,7 @@ class EnglishSoft(QWidget):
         self.btn1 = QRadioButton("词汇", self.window)
         self.btn2 = QRadioButton("短语", self.window)
         self.btn3 = QRadioButton("句式", self.window)
-        self.btn4 = QRadioButton("语法", self.window)
+        self.btn4 = QRadioButton("语步", self.window)
         self.btn1.setChecked(1)
         self.bg = QButtonGroup(self.window)
         self.bg.addButton(self.btn1)

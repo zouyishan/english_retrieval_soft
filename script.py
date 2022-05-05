@@ -2,10 +2,12 @@ import requests
 import itertools as its
 from hashlib import md5
 
+
 def encrypt_md5(s):
     new_md5 = md5()
     new_md5.update(s.encode(encoding='utf-8'))
     return new_md5.hexdigest()
+
 
 if __name__ == '__main__':
     url = "http://10.18.21.151/login.php"
