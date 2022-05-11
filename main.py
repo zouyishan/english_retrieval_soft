@@ -124,8 +124,9 @@ class EnglishSoft(QWidget):
             start -= 2
         if end + 2 < len(src):
             end += 2
+        text += '...'
         text += src[start:end]
-        text += ', 自符位于: '
+        text += '..., 字符位于: '
         text += str(tup[0])
         text += '-'
         text += str(tup[1])
