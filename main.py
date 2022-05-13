@@ -1,6 +1,7 @@
 from PySide2.QtWidgets import *
 import re
 
+
 class EnglishSoft(QWidget):
     def __init__(self, parent=None):
         super(EnglishSoft, self).__init__(parent)
@@ -63,7 +64,6 @@ class EnglishSoft(QWidget):
         self.save.clicked.connect(self.saveFile)
         self.window.show()
 
-
     def handleCalc(self):
         info = self.textEdit.toPlainText()
 
@@ -76,17 +76,17 @@ class EnglishSoft(QWidget):
             parts = line.split(' ')
             # 去掉列表中的空字符串内容
             parts = [p for p in parts if p]
-            name,salary,age = parts
+            name, salary, age = parts
             if int(salary) >= 20000:
                 salary_above_20k += name + '\n'
             else:
                 salary_below_20k += name + '\n'
 
         QMessageBox.about(self.window,
-                    '统计结果',
-                    f'''以上的有：\n{salary_above_20k}
+                          '统计结果',
+                          f'''以上的有：\n{salary_above_20k}
                     \n以下的有：\n{salary_below_20k}'''
-                    )
+                          )
 
     def openFile(self):
         file_path = QFileDialog.getOpenFileName(self, '选择文件', './', '*.txt')
@@ -110,7 +110,7 @@ class EnglishSoft(QWidget):
         if src == '':
             QMessageBox.about(self.window, '提示', '输入框为空')
 
-        obj = re.search(data, src, re.M|re.I)
+        obj = re.search(data, src, re.M | re.I)
         text = ''
         if obj is None:
             text = '匹配失败'
@@ -131,7 +131,6 @@ class EnglishSoft(QWidget):
         text += '-'
         text += str(tup[1])
         self.res.setPlainText(text)
-
 
 
 if __name__ == '__main__':
